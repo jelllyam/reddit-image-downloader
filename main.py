@@ -23,10 +23,11 @@ def main():
         print("Images folder already present\n")
     count = 1
     for url in imgs:
-        response = requests.get(url,stream=True,headers={'User-Agent': 'Mozilla/5.0'} )
-        with open(dir_path+r"\images"+"\\img"+str(count)+".jpg","wb") as f:
-            f.write(response.content)
-        count += 1
+        if "external" not in url:
+            response = requests.get(url,stream=True,headers={'User-Agent': 'Mozilla/5.0'} )
+            with open(dir_path+r"\images"+"\\img"+str(count)+".jpg","wb") as f:
+                f.write(response.content)
+            count += 1
 
 if __name__ == "__main__":
     main()
