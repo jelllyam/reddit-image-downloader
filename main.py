@@ -8,6 +8,7 @@ def main():
         subr = sys.argv[1]
     except IndexError:
         print("Please follow the instructions from the README file")
+        exit(0)
 
     page = requests.get(f"https://www.reddit.com/r/{subr}/top/",stream=True,headers={'User-Agent': 'Mozilla/5.0'})
     webpage = html.fromstring(page.content)
@@ -23,7 +24,7 @@ def main():
     count = 1
     for url in imgs:
         response = requests.get(url,stream=True,headers={'User-Agent': 'Mozilla/5.0'} )
-        with open(dir_path+r"\images"+"\\meme"+str(count)+".jpg","wb") as f:
+        with open(dir_path+r"\images"+"\\img"+str(count)+".jpg","wb") as f:
             f.write(response.content)
         count += 1
 
