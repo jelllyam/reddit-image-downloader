@@ -1,3 +1,7 @@
+import requests
+import os
+import sys
+from lxml import html
 
 def main():
     try:
@@ -10,10 +14,18 @@ def main():
 
     imgs = webpage.xpath('//img[@alt="Post image"]/@src')
 
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+
+    try:
+        os.mkdir(dir_path+r"\images")
+    except FileExistsError:
+        print("Images folder already present\n")
+    count = 1
+    for url in imgs:
+        response = requests.get(url,stream=True,headers={'User-Agent': 'Mozilla/5.0'} )
+        with open(dir_path+r"\images"+"\\meme"+str(count)+".jpg","wb") as f:
+            f.write(response.content)
+        count += 1
 
 if __name__ == "__main__":
-    import requests
-    import os
-    import sys
-    from lxml import html
     main()
